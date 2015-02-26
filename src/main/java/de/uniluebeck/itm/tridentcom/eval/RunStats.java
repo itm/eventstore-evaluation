@@ -1,11 +1,17 @@
 package de.uniluebeck.itm.tridentcom.eval;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
-public interface RunStats {
+public interface RunStats<T> {
+
+    /**
+     * Returns the class of items that were persisted and read.
+     *
+     * @return the item class
+     */
+    public Class<T> getItemClass();
 
     /**
      * Returns the total execution of the writing operations of this run.
@@ -43,7 +49,7 @@ public interface RunStats {
      * @param unit the unit, e.g., ms
      * @return the average number of items that were written per time unit
      */
-    public BigDecimal getAvgItemsWrittenPer(ChronoUnit unit);
+    public double getAvgWritingOpsPer(ChronoUnit unit);
 
     /**
      * Returns the average number of items that were read per time unit.
@@ -51,7 +57,7 @@ public interface RunStats {
      * @param unit the unit, e.g., ms
      * @return the average number of items that were read per time unit
      */
-    public BigDecimal getAvgItemsReadPer(ChronoUnit unit);
+    public double getAvgReadingOpsPer(ChronoUnit unit);
 
     /**
      * The number of items that have been read in total by all reader threads in this run.

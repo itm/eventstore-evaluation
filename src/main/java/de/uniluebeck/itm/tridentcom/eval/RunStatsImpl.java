@@ -4,7 +4,6 @@ import com.google.common.base.Stopwatch;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -12,29 +11,36 @@ import java.util.concurrent.TimeUnit;
 
 import static com.google.common.collect.Lists.newLinkedList;
 
-class RunStatsImpl implements RunStats {
+class RunStatsImpl<T> implements RunStats<T> {
 
     private static class Measurement {
         long amount;
         Stopwatch stopwatch;
+
         public Measurement(long amount, Stopwatch stopwatch) {
             this.amount = amount;
             this.stopwatch = stopwatch;
         }
     }
 
+    private final Class<T> clazz;
+    private final int runNr;
     private final int readerCount;
     private final int writerCount;
 
     private List<Measurement> reads = newLinkedList();
     private List<Measurement> writes = newLinkedList();
 
-    private static int runNr = 0;
-
-    public RunStatsImpl(int readerCount, int writerCount) {
+    public RunStatsImpl(Class<T> clazz, int runNr, int readerCount, int writerCount) {
+        this.clazz = clazz;
+        this.runNr = runNr;
         this.readerCount = readerCount;
         this.writerCount = writerCount;
-        this.runNr++;
+    }
+
+    @Override
+    public Class<T> getItemClass() {
+        return clazz;
     }
 
     @Override
@@ -58,12 +64,12 @@ class RunStatsImpl implements RunStats {
     }
 
     @Override
-    public BigDecimal getAvgItemsWrittenPer(ChronoUnit unit) {
+    public double getAvgWritingOpsPer(ChronoUnit unit) {
         return calculateAverageDurationPerUnitOverAllMeasurements(unit, writes);
     }
 
     @Override
-    public BigDecimal getAvgItemsReadPer(ChronoUnit unit) {
+    public double getAvgReadingOpsPer(ChronoUnit unit) {
         return calculateAverageDurationPerUnitOverAllMeasurements(unit, reads);
     }
 
@@ -89,42 +95,40 @@ class RunStatsImpl implements RunStats {
 
     void addWritten(long amount, Stopwatch stopwatch) {
         writes.add(new Measurement(amount, stopwatch));
-        long duration = stopwatch.elapsed(TimeUnit.NANOSECONDS);
-        long nanosPerItem = stopwatch.elapsed(TimeUnit.NANOSECONDS) / amount;
-        double itemsPerSecond = (double) amount / stopwatch.elapsed(TimeUnit.SECONDS);
     }
 
     void addRead(long amount, Stopwatch stopwatch) {
         reads.add(new Measurement(amount, stopwatch));
-        long duration = stopwatch.elapsed(TimeUnit.NANOSECONDS);
-        long nanosPerItem = stopwatch.elapsed(TimeUnit.NANOSECONDS) / amount;
-        double itemsPerSecond = (double) amount / stopwatch.elapsed(TimeUnit.SECONDS);
     }
 
     private BigInteger sumUpAmounts(List<Measurement> measurements) {
-        BigInteger sum = BigInteger.ZERO;
-        measurements.forEach(m -> sum.add(BigInteger.valueOf(m.amount)));
-        return sum;
+        return measurements.stream()
+                .map(m -> BigInteger.valueOf(m.amount))
+                .reduce(BigInteger.ZERO, BigInteger::add);
     }
 
     private Duration sumUpDuration(List<Measurement> measurements) {
-        Duration d = Duration.ZERO;
-        measurements.forEach(m -> d.plusNanos(m.stopwatch.elapsed(TimeUnit.NANOSECONDS)));
-        return d;
+        return measurements.stream()
+                .map(m -> Duration.ofNanos(m.stopwatch.elapsed(TimeUnit.NANOSECONDS)))
+                .reduce(Duration.ZERO, Duration::plus);
     }
 
-    private BigDecimal calculateAverageDurationPerUnitOverAllMeasurements(ChronoUnit unit, List<Measurement> measurements) {
+    private double calculateAverageDurationPerUnitOverAllMeasurements(ChronoUnit unit,
+                                                                      List<Measurement> measurements) {
         MovingAverage movingAverage = new MovingAverage(measurements.size());
         measurements.forEach(m -> {
-            long durationInUnit = Duration.ofNanos(m.stopwatch.elapsed(TimeUnit.NANOSECONDS)).get(unit);
-            movingAverage.add(BigDecimal.valueOf(m.amount).divide(BigDecimal.valueOf(durationInUnit), RoundingMode.HALF_UP));
+            BigDecimal divisor = BigDecimal.valueOf(m.stopwatch.elapsed(TimeUnit.NANOSECONDS));
+            movingAverage.add((double) m.amount / divisor.longValueExact());
         });
-        return movingAverage.getAverage();
+        return movingAverage.getAverage() * unit.getDuration().toNanos();
     }
 
     private Duration calculateAverageDurationPerItemOperation(List<Measurement> measurements) {
         BigInteger totalDurationNanos = BigInteger.valueOf(sumUpDuration(measurements).toNanos());
         BigInteger totalReads = sumUpAmounts(measurements);
+        if (totalReads.equals(BigInteger.ZERO)) {
+            return Duration.ZERO;
+        }
         return Duration.ofNanos(totalDurationNanos.divide(totalReads).longValueExact());
     }
 
@@ -132,16 +136,17 @@ class RunStatsImpl implements RunStats {
     public String toString() {
         String s = "";
         s += "================================== STATS FOR RUN " + runNr + " ==================================\n";
+        s += "Item class                      = " + clazz.getCanonicalName() + "\n";
         s += "Reader count                    = " + getReaderCount() + "\n";
         s += "Writer count                    = " + getWriterCount() + "\n";
-        s += "Total read  duration            = " + getTotalReadDuration() + "\n";
-        s += "Total write duration            = " + getTotalWriteDuration() + "\n";
+        s += "Total read  duration            = " + getTotalReadDuration().toMillis() + " ms\n";
+        s += "Total write duration            = " + getTotalWriteDuration().toMillis() + " ms\n";
         s += "Total reading ops               = " + getReadAmountTotal() + "\n";
         s += "Total writing ops               = " + getWriteAmountTotal() + "\n";
-        s += "Average duration per reading op = " + getAvgDurationForReads() + "\n";
-        s += "Average duration per writing op = " + getAvgDurationForWrites() + "\n";
-        s += "Average reading ops per second  = " + getAvgItemsReadPer(ChronoUnit.SECONDS) + "\n";
-        s += "Average writing ops per second  = " + getAvgItemsWrittenPer(ChronoUnit.SECONDS) + "\n";
+        s += "Average duration per reading op = " + getAvgDurationForReads().toNanos() + " ns\n";
+        s += "Average duration per writing op = " + getAvgDurationForWrites().toNanos() + " ns\n";
+        s += "Average reading ops per second  = " + getAvgReadingOpsPer(ChronoUnit.SECONDS) + "\n";
+        s += "Average writing ops per second  = " + getAvgWritingOpsPer(ChronoUnit.SECONDS) + "\n";
         s += "\n";
         return s;
     }

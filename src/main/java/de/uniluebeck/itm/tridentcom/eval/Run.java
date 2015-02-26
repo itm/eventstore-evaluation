@@ -37,7 +37,9 @@ public class Run<T> extends AbstractService {
     private final Function<T, byte[]> serializer;
 
     private final Function<byte[], T> deserializer;
-    private final RunStatsImpl stats = new RunStatsImpl();
+    private final RunStatsImpl<T> stats;
+
+    private static int runNr = 0;
 
     /**
      * Creates a new Run.
@@ -80,6 +82,8 @@ public class Run<T> extends AbstractService {
         this.generator = checkNotNull(generator);
         this.serializer = checkNotNull(serializer);
         this.deserializer = checkNotNull(deserializer);
+
+        this.stats = new RunStatsImpl<>(clazz, runNr++, readerCount, writerCount);
     }
 
     @Override
@@ -90,29 +94,44 @@ public class Run<T> extends AbstractService {
         final List<EventStore<T>> stores = newLinkedList();
         final Random random = new Random();
 
-        for (int i = 0; i < writerCount; i++) {
+        try {
 
-            EventStore<T> store = RunHelper.createEventStore(clazz, serializer, deserializer);
-            stores.add(store);
-            CompletableFuture<Stopwatch> future = new CompletableFuture<>();
-            future.thenAccept((stopwatch) -> stats.addWritten(writeAmount, stopwatch)).thenRun(semaphore::release);
-            executor.execute(createWriter(store, future));
+            for (int i = 0; i < writerCount; i++) {
+
+                EventStore<T> store = RunHelper.createEventStore(clazz, serializer, deserializer);
+                stores.add(store);
+                CompletableFuture<Stopwatch> future = new CompletableFuture<>();
+                future.thenAccept((stopwatch) -> stats.addWritten(writeAmount, stopwatch)).thenRun(semaphore::release);
+                semaphore.acquire();
+                executor.execute(createWriter(store, future));
+            }
+
+            for (int i = 0; i < readerCount; i++) {
+
+                CompletableFuture<Stopwatch> future = new CompletableFuture<>();
+                future.thenAccept((stopwatch) -> stats.addRead(readAmount, stopwatch)).thenRun(semaphore::release);
+                EventStore<T> randomStore = stores.get(random.nextInt(stores.size()));
+                semaphore.acquire();
+                executor.execute(createReader(randomStore, future));
+            }
+
+            notifyStarted();
+
+        } catch (InterruptedException e) {
+            notifyFailed(e);
         }
-
-        for (int i = 0; i < readerCount; i++) {
-
-            CompletableFuture<Stopwatch> future = new CompletableFuture<>();
-            future.thenAccept((stopwatch) -> stats.addRead(readAmount, stopwatch)).thenRun(semaphore::release);
-            EventStore<T> randomStore = stores.get(random.nextInt(stores.size()));
-            executor.execute(createReader(randomStore, future));
-        }
-
-        notifyStarted();
 
         try {
             semaphore.acquire(threadCount);
+            stores.forEach(s -> {
+                try {
+                    s.close();
+                } catch (Exception e) {
+                    notifyFailed(e);
+                }
+            });
             notifyStopped();
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             notifyFailed(e);
         }
     }
@@ -123,7 +142,7 @@ public class Run<T> extends AbstractService {
             Stopwatch stopwatch = Stopwatch.createStarted();
 
             int dummyHash = 0;
-            for (long read = 0; read < readAmount;) {
+            for (long read = 0; read < readAmount; ) {
 
                 try {
 

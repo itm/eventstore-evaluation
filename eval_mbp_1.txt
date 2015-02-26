@@ -1,0 +1,842 @@
+================================== STATS FOR RUN 0 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 0
+Writer count                    = 1
+Total read  duration            = 0 ms
+Total write duration            = 1282 ms
+Total reading ops               = 0
+Total writing ops               = 1000000
+Average duration per reading op = 0 ns
+Average duration per writing op = 1282 ns
+Average reading ops per second  = 0.0
+Average writing ops per second  = 779717.2744227282
+
+
+================================== STATS FOR RUN 1 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 1
+Writer count                    = 1
+Total read  duration            = 449 ms
+Total write duration            = 812 ms
+Total reading ops               = 1000000
+Total writing ops               = 1000000
+Average duration per reading op = 449 ns
+Average duration per writing op = 812 ns
+Average reading ops per second  = 2224934.0856046104
+Average writing ops per second  = 1230052.2624482263
+
+
+================================== STATS FOR RUN 2 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 2
+Writer count                    = 1
+Total read  duration            = 553 ms
+Total write duration            = 739 ms
+Total reading ops               = 2000000
+Total writing ops               = 1000000
+Average duration per reading op = 276 ns
+Average duration per writing op = 739 ns
+Average reading ops per second  = 3619927.195395378
+Average writing ops per second  = 1352931.6065486616
+
+
+================================== STATS FOR RUN 3 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 3
+Writer count                    = 1
+Total read  duration            = 686 ms
+Total write duration            = 696 ms
+Total reading ops               = 3000000
+Total writing ops               = 1000000
+Average duration per reading op = 228 ns
+Average duration per writing op = 696 ns
+Average reading ops per second  = 4374858.118635941
+Average writing ops per second  = 1435586.166068085
+
+
+================================== STATS FOR RUN 4 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 4
+Writer count                    = 1
+Total read  duration            = 1196 ms
+Total write duration            = 760 ms
+Total reading ops               = 4000000
+Total writing ops               = 1000000
+Average duration per reading op = 299 ns
+Average duration per writing op = 760 ns
+Average reading ops per second  = 3342933.7188568492
+Average writing ops per second  = 1314867.5352808707
+
+
+================================== STATS FOR RUN 5 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 5
+Writer count                    = 1
+Total read  duration            = 1670 ms
+Total write duration            = 821 ms
+Total reading ops               = 5000000
+Total writing ops               = 1000000
+Average duration per reading op = 334 ns
+Average duration per writing op = 821 ns
+Average reading ops per second  = 2996887.873372518
+Average writing ops per second  = 1217243.6270808212
+
+
+================================== STATS FOR RUN 6 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 0
+Writer count                    = 2
+Total read  duration            = 0 ms
+Total write duration            = 1125 ms
+Total reading ops               = 0
+Total writing ops               = 2000000
+Average duration per reading op = 0 ns
+Average duration per writing op = 562 ns
+Average reading ops per second  = 0.0
+Average writing ops per second  = 1776811.1157725127
+
+
+================================== STATS FOR RUN 7 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 1
+Writer count                    = 2
+Total read  duration            = 180 ms
+Total write duration            = 1707 ms
+Total reading ops               = 1000000
+Total writing ops               = 2000000
+Average duration per reading op = 180 ns
+Average duration per writing op = 853 ns
+Average reading ops per second  = 5534972.101305222
+Average writing ops per second  = 1265085.0724008651
+
+
+================================== STATS FOR RUN 8 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 2
+Writer count                    = 2
+Total read  duration            = 451 ms
+Total write duration            = 1591 ms
+Total reading ops               = 2000000
+Total writing ops               = 2000000
+Average duration per reading op = 225 ns
+Average duration per writing op = 795 ns
+Average reading ops per second  = 4430694.578692456
+Average writing ops per second  = 1277974.2236760242
+
+
+================================== STATS FOR RUN 9 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 3
+Writer count                    = 2
+Total read  duration            = 658 ms
+Total write duration            = 1569 ms
+Total reading ops               = 3000000
+Total writing ops               = 2000000
+Average duration per reading op = 219 ns
+Average duration per writing op = 784 ns
+Average reading ops per second  = 4555003.237826289
+Average writing ops per second  = 1274728.2595429732
+
+
+================================== STATS FOR RUN 10 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 4
+Writer count                    = 2
+Total read  duration            = 1376 ms
+Total write duration            = 1561 ms
+Total reading ops               = 4000000
+Total writing ops               = 2000000
+Average duration per reading op = 344 ns
+Average duration per writing op = 780 ns
+Average reading ops per second  = 2906834.190834424
+Average writing ops per second  = 1280758.0998579331
+
+
+================================== STATS FOR RUN 11 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 5
+Writer count                    = 2
+Total read  duration            = 1795 ms
+Total write duration            = 1677 ms
+Total reading ops               = 5000000
+Total writing ops               = 2000000
+Average duration per reading op = 359 ns
+Average duration per writing op = 838 ns
+Average reading ops per second  = 2791009.512124634
+Average writing ops per second  = 1192011.806210829
+
+
+================================== STATS FOR RUN 12 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 0
+Writer count                    = 3
+Total read  duration            = 0 ms
+Total write duration            = 2268 ms
+Total reading ops               = 0
+Total writing ops               = 3000000
+Average duration per reading op = 0 ns
+Average duration per writing op = 756 ns
+Average reading ops per second  = 0.0
+Average writing ops per second  = 1322670.985020287
+
+
+================================== STATS FOR RUN 13 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 1
+Writer count                    = 3
+Total read  duration            = 204 ms
+Total write duration            = 2752 ms
+Total reading ops               = 1000000
+Total writing ops               = 3000000
+Average duration per reading op = 204 ns
+Average duration per writing op = 917 ns
+Average reading ops per second  = 4885131.410816572
+Average writing ops per second  = 1199924.9922410653
+
+
+================================== STATS FOR RUN 14 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 2
+Writer count                    = 3
+Total read  duration            = 490 ms
+Total write duration            = 2721 ms
+Total reading ops               = 2000000
+Total writing ops               = 3000000
+Average duration per reading op = 245 ns
+Average duration per writing op = 907 ns
+Average reading ops per second  = 4077802.9133929154
+Average writing ops per second  = 1124249.6314921267
+
+
+================================== STATS FOR RUN 15 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 3
+Writer count                    = 3
+Total read  duration            = 987 ms
+Total write duration            = 2834 ms
+Total reading ops               = 3000000
+Total writing ops               = 3000000
+Average duration per reading op = 329 ns
+Average duration per writing op = 944 ns
+Average reading ops per second  = 3039454.4902980886
+Average writing ops per second  = 1058393.159121522
+
+
+================================== STATS FOR RUN 16 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 4
+Writer count                    = 3
+Total read  duration            = 1055 ms
+Total write duration            = 3015 ms
+Total reading ops               = 4000000
+Total writing ops               = 3000000
+Average duration per reading op = 263 ns
+Average duration per writing op = 1005 ns
+Average reading ops per second  = 3921966.0734217037
+Average writing ops per second  = 998220.9382961452
+
+
+================================== STATS FOR RUN 17 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 5
+Writer count                    = 3
+Total read  duration            = 1913 ms
+Total write duration            = 3199 ms
+Total reading ops               = 5000000
+Total writing ops               = 3000000
+Average duration per reading op = 382 ns
+Average duration per writing op = 1066 ns
+Average reading ops per second  = 2613680.5382001027
+Average writing ops per second  = 937921.3981210777
+
+
+================================== STATS FOR RUN 18 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 0
+Writer count                    = 4
+Total read  duration            = 0 ms
+Total write duration            = 3708 ms
+Total reading ops               = 0
+Total writing ops               = 4000000
+Average duration per reading op = 0 ns
+Average duration per writing op = 927 ns
+Average reading ops per second  = 0.0
+Average writing ops per second  = 1094420.9263798178
+
+
+================================== STATS FOR RUN 19 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 1
+Writer count                    = 4
+Total read  duration            = 308 ms
+Total write duration            = 4143 ms
+Total reading ops               = 1000000
+Total writing ops               = 4000000
+Average duration per reading op = 308 ns
+Average duration per writing op = 1035 ns
+Average reading ops per second  = 3238934.4065158134
+Average writing ops per second  = 967021.822816421
+
+
+================================== STATS FOR RUN 20 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 2
+Writer count                    = 4
+Total read  duration            = 675 ms
+Total write duration            = 4575 ms
+Total reading ops               = 2000000
+Total writing ops               = 4000000
+Average duration per reading op = 337 ns
+Average duration per writing op = 1143 ns
+Average reading ops per second  = 2960511.34217462
+Average writing ops per second  = 886996.2178570647
+
+
+================================== STATS FOR RUN 21 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 3
+Writer count                    = 4
+Total read  duration            = 1083 ms
+Total write duration            = 4525 ms
+Total reading ops               = 3000000
+Total writing ops               = 4000000
+Average duration per reading op = 361 ns
+Average duration per writing op = 1131 ns
+Average reading ops per second  = 2769302.1086329445
+Average writing ops per second  = 884179.613191917
+
+
+================================== STATS FOR RUN 22 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 4
+Writer count                    = 4
+Total read  duration            = 1729 ms
+Total write duration            = 5273 ms
+Total reading ops               = 4000000
+Total writing ops               = 4000000
+Average duration per reading op = 432 ns
+Average duration per writing op = 1318 ns
+Average reading ops per second  = 2312939.7952117915
+Average writing ops per second  = 758641.9124545761
+
+
+================================== STATS FOR RUN 23 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 5
+Writer count                    = 4
+Total read  duration            = 2127 ms
+Total write duration            = 4879 ms
+Total reading ops               = 5000000
+Total writing ops               = 4000000
+Average duration per reading op = 425 ns
+Average duration per writing op = 1219 ns
+Average reading ops per second  = 2350480.421888808
+Average writing ops per second  = 862483.4829294182
+
+
+================================== STATS FOR RUN 24 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 0
+Writer count                    = 5
+Total read  duration            = 0 ms
+Total write duration            = 7200 ms
+Total reading ops               = 0
+Total writing ops               = 5000000
+Average duration per reading op = 0 ns
+Average duration per writing op = 1440 ns
+Average reading ops per second  = 0.0
+Average writing ops per second  = 702427.5280343222
+
+
+================================== STATS FOR RUN 25 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 1
+Writer count                    = 5
+Total read  duration            = 316 ms
+Total write duration            = 6553 ms
+Total reading ops               = 1000000
+Total writing ops               = 5000000
+Average duration per reading op = 316 ns
+Average duration per writing op = 1310 ns
+Average reading ops per second  = 3163877.249054798
+Average writing ops per second  = 770527.2805915986
+
+
+================================== STATS FOR RUN 26 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 2
+Writer count                    = 5
+Total read  duration            = 749 ms
+Total write duration            = 6421 ms
+Total reading ops               = 2000000
+Total writing ops               = 5000000
+Average duration per reading op = 374 ns
+Average duration per writing op = 1284 ns
+Average reading ops per second  = 2670323.084938662
+Average writing ops per second  = 778637.4245406645
+
+
+================================== STATS FOR RUN 27 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 3
+Writer count                    = 5
+Total read  duration            = 1322 ms
+Total write duration            = 6682 ms
+Total reading ops               = 3000000
+Total writing ops               = 5000000
+Average duration per reading op = 440 ns
+Average duration per writing op = 1336 ns
+Average reading ops per second  = 2268943.1098722075
+Average writing ops per second  = 748230.2482572591
+
+
+================================== STATS FOR RUN 28 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 4
+Writer count                    = 5
+Total read  duration            = 2005 ms
+Total write duration            = 6451 ms
+Total reading ops               = 4000000
+Total writing ops               = 5000000
+Average duration per reading op = 501 ns
+Average duration per writing op = 1290 ns
+Average reading ops per second  = 1994552.222607666
+Average writing ops per second  = 784227.6924465988
+
+
+================================== STATS FOR RUN 29 ==================================
+Item class                      = java.math.BigInteger
+Reader count                    = 5
+Writer count                    = 5
+Total read  duration            = 2695 ms
+Total write duration            = 6029 ms
+Total reading ops               = 5000000
+Total writing ops               = 5000000
+Average duration per reading op = 539 ns
+Average duration per writing op = 1205 ns
+Average reading ops per second  = 1873743.0199393893
+Average writing ops per second  = 844334.791251842
+
+
+
+
+
+
+================================== STATS FOR RUN 30 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 0
+Writer count                    = 1
+Total read  duration            = 0 ms
+Total write duration            = 3587 ms
+Total reading ops               = 0
+Total writing ops               = 1000000
+Average duration per reading op = 0 ns
+Average duration per writing op = 3587 ns
+Average reading ops per second  = 0.0
+Average writing ops per second  = 278707.93190070684
+
+
+================================== STATS FOR RUN 31 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 1
+Writer count                    = 1
+Total read  duration            = 8386 ms
+Total write duration            = 2840 ms
+Total reading ops               = 1000000
+Total writing ops               = 1000000
+Average duration per reading op = 8386 ns
+Average duration per writing op = 2840 ns
+Average reading ops per second  = 119240.05974251803
+Average writing ops per second  = 352043.5016155732
+
+
+================================== STATS FOR RUN 32 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 2
+Writer count                    = 1
+Total read  duration            = 13599 ms
+Total write duration            = 3039 ms
+Total reading ops               = 2000000
+Total writing ops               = 1000000
+Average duration per reading op = 6799 ns
+Average duration per writing op = 3039 ns
+Average reading ops per second  = 147069.2879907261
+Average writing ops per second  = 329044.48568452575
+
+
+================================== STATS FOR RUN 33 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 3
+Writer count                    = 1
+Total read  duration            = 24639 ms
+Total write duration            = 3396 ms
+Total reading ops               = 3000000
+Total writing ops               = 1000000
+Average duration per reading op = 8213 ns
+Average duration per writing op = 3396 ns
+Average reading ops per second  = 121757.3681700243
+Average writing ops per second  = 294459.10712238547
+
+
+================================== STATS FOR RUN 34 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 4
+Writer count                    = 1
+Total read  duration            = 43571 ms
+Total write duration            = 4651 ms
+Total reading ops               = 4000000
+Total writing ops               = 1000000
+Average duration per reading op = 10892 ns
+Average duration per writing op = 4651 ns
+Average reading ops per second  = 91803.68676178964
+Average writing ops per second  = 214996.2790303743
+
+
+================================== STATS FOR RUN 35 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 5
+Writer count                    = 1
+Total read  duration            = 64829 ms
+Total write duration            = 5424 ms
+Total reading ops               = 5000000
+Total writing ops               = 1000000
+Average duration per reading op = 12965 ns
+Average duration per writing op = 5424 ns
+Average reading ops per second  = 77125.01690130756
+Average writing ops per second  = 184352.97125270354
+
+
+================================== STATS FOR RUN 36 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 0
+Writer count                    = 2
+Total read  duration            = 0 ms
+Total write duration            = 7348 ms
+Total reading ops               = 0
+Total writing ops               = 2000000
+Average duration per reading op = 0 ns
+Average duration per writing op = 3674 ns
+Average reading ops per second  = 0.0
+Average writing ops per second  = 272151.897705767
+
+
+================================== STATS FOR RUN 37 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 1
+Writer count                    = 2
+Total read  duration            = 6654 ms
+Total write duration            = 5894 ms
+Total reading ops               = 1000000
+Total writing ops               = 2000000
+Average duration per reading op = 6654 ns
+Average duration per writing op = 2947 ns
+Average reading ops per second  = 150276.2984155266
+Average writing ops per second  = 339878.11240719236
+
+
+================================== STATS FOR RUN 38 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 2
+Writer count                    = 2
+Total read  duration            = 16795 ms
+Total write duration            = 8631 ms
+Total reading ops               = 2000000
+Total writing ops               = 2000000
+Average duration per reading op = 8397 ns
+Average duration per writing op = 4315 ns
+Average reading ops per second  = 119080.80217400094
+Average writing ops per second  = 231818.78857581207
+
+
+================================== STATS FOR RUN 39 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 3
+Writer count                    = 2
+Total read  duration            = 27697 ms
+Total write duration            = 8619 ms
+Total reading ops               = 3000000
+Total writing ops               = 2000000
+Average duration per reading op = 9232 ns
+Average duration per writing op = 4309 ns
+Average reading ops per second  = 108313.2086195069
+Average writing ops per second  = 232098.40176160887
+
+
+================================== STATS FOR RUN 40 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 4
+Writer count                    = 2
+Total read  duration            = 46581 ms
+Total write duration            = 10691 ms
+Total reading ops               = 4000000
+Total writing ops               = 2000000
+Average duration per reading op = 11645 ns
+Average duration per writing op = 5345 ns
+Average reading ops per second  = 85872.1689299631
+Average writing ops per second  = 187198.72523500837
+
+
+================================== STATS FOR RUN 41 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 5
+Writer count                    = 2
+Total read  duration            = 66549 ms
+Total write duration            = 12442 ms
+Total reading ops               = 5000000
+Total writing ops               = 2000000
+Average duration per reading op = 13309 ns
+Average duration per writing op = 6221 ns
+Average reading ops per second  = 75132.85543387447
+Average writing ops per second  = 160736.04347739858
+
+
+================================== STATS FOR RUN 42 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 0
+Writer count                    = 3
+Total read  duration            = 0 ms
+Total write duration            = 18604 ms
+Total reading ops               = 0
+Total writing ops               = 3000000
+Average duration per reading op = 0 ns
+Average duration per writing op = 6201 ns
+Average reading ops per second  = 0.0
+Average writing ops per second  = 161347.07516255323
+
+
+================================== STATS FOR RUN 43 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 1
+Writer count                    = 3
+Total read  duration            = 7209 ms
+Total write duration            = 10636 ms
+Total reading ops               = 1000000
+Total writing ops               = 3000000
+Average duration per reading op = 7209 ns
+Average duration per writing op = 3545 ns
+Average reading ops per second  = 138702.92627321117
+Average writing ops per second  = 282089.072248011
+
+
+================================== STATS FOR RUN 44 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 2
+Writer count                    = 3
+Total read  duration            = 17480 ms
+Total write duration            = 15572 ms
+Total reading ops               = 2000000
+Total writing ops               = 3000000
+Average duration per reading op = 8740 ns
+Average duration per writing op = 5190 ns
+Average reading ops per second  = 114415.68665692196
+Average writing ops per second  = 192664.74040724154
+
+
+================================== STATS FOR RUN 45 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 3
+Writer count                    = 3
+Total read  duration            = 52602 ms
+Total write duration            = 21146 ms
+Total reading ops               = 3000000
+Total writing ops               = 3000000
+Average duration per reading op = 17534 ns
+Average duration per writing op = 7048 ns
+Average reading ops per second  = 57031.402453669965
+Average writing ops per second  = 141962.14196261478
+
+
+================================== STATS FOR RUN 46 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 4
+Writer count                    = 3
+Total read  duration            = 61884 ms
+Total write duration            = 28875 ms
+Total reading ops               = 4000000
+Total writing ops               = 3000000
+Average duration per reading op = 15471 ns
+Average duration per writing op = 9625 ns
+Average reading ops per second  = 64638.769612488104
+Average writing ops per second  = 103961.47171090271
+
+
+================================== STATS FOR RUN 47 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 5
+Writer count                    = 3
+Total read  duration            = 103220 ms
+Total write duration            = 28045 ms
+Total reading ops               = 5000000
+Total writing ops               = 3000000
+Average duration per reading op = 20644 ns
+Average duration per writing op = 9348 ns
+Average reading ops per second  = 48439.88870856071
+Average writing ops per second  = 106982.21540787806
+
+
+================================== STATS FOR RUN 48 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 0
+Writer count                    = 4
+Total read  duration            = 0 ms
+Total write duration            = 97734 ms
+Total reading ops               = 0
+Total writing ops               = 4000000
+Average duration per reading op = 0 ns
+Average duration per writing op = 24433 ns
+Average reading ops per second  = 0.0
+Average writing ops per second  = 41034.04061383253
+
+
+================================== STATS FOR RUN 49 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 1
+Writer count                    = 4
+Total read  duration            = 14125 ms
+Total write duration            = 30876 ms
+Total reading ops               = 1000000
+Total writing ops               = 4000000
+Average duration per reading op = 14125 ns
+Average duration per writing op = 7719 ns
+Average reading ops per second  = 70794.64258656636
+Average writing ops per second  = 129553.63968320454
+
+
+================================== STATS FOR RUN 50 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 2
+Writer count                    = 4
+Total read  duration            = 21444 ms
+Total write duration            = 27428 ms
+Total reading ops               = 2000000
+Total writing ops               = 4000000
+Average duration per reading op = 10722 ns
+Average duration per writing op = 6857 ns
+Average reading ops per second  = 93264.97175302109
+Average writing ops per second  = 145838.85523285222
+
+
+================================== STATS FOR RUN 51 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 3
+Writer count                    = 4
+Total read  duration            = 35447 ms
+Total write duration            = 27891 ms
+Total reading ops               = 3000000
+Total writing ops               = 4000000
+Average duration per reading op = 11815 ns
+Average duration per writing op = 6972 ns
+Average reading ops per second  = 84632.14314882929
+Average writing ops per second  = 143455.38118737965
+
+
+================================== STATS FOR RUN 52 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 4
+Writer count                    = 4
+Total read  duration            = 59828 ms
+Total write duration            = 36121 ms
+Total reading ops               = 4000000
+Total writing ops               = 4000000
+Average duration per reading op = 14957 ns
+Average duration per writing op = 9030 ns
+Average reading ops per second  = 66860.50295553793
+Average writing ops per second  = 110784.51924154263
+
+
+================================== STATS FOR RUN 53 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 5
+Writer count                    = 4
+Total read  duration            = 161993 ms
+Total write duration            = 85233 ms
+Total reading ops               = 5000000
+Total writing ops               = 4000000
+Average duration per reading op = 32398 ns
+Average duration per writing op = 21308 ns
+Average reading ops per second  = 30870.020943074418
+Average writing ops per second  = 46933.14326733967
+
+
+================================== STATS FOR RUN 54 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 0
+Writer count                    = 5
+Total read  duration            = 0 ms
+Total write duration            = 51494 ms
+Total reading ops               = 0
+Total writing ops               = 5000000
+Average duration per reading op = 0 ns
+Average duration per writing op = 10298 ns
+Average reading ops per second  = 0.0
+Average writing ops per second  = 97142.60204183956
+
+
+================================== STATS FOR RUN 55 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 1
+Writer count                    = 5
+Total read  duration            = 11365 ms
+Total write duration            = 47106 ms
+Total reading ops               = 1000000
+Total writing ops               = 5000000
+Average duration per reading op = 11365 ns
+Average duration per writing op = 9421 ns
+Average reading ops per second  = 87985.20157256455
+Average writing ops per second  = 106147.29113807972
+
+
+================================== STATS FOR RUN 56 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 2
+Writer count                    = 5
+Total read  duration            = 21160 ms
+Total write duration            = 34463 ms
+Total reading ops               = 2000000
+Total writing ops               = 5000000
+Average duration per reading op = 10580 ns
+Average duration per writing op = 6892 ns
+Average reading ops per second  = 94515.66167225162
+Average writing ops per second  = 145146.53105845113
+
+
+================================== STATS FOR RUN 57 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 3
+Writer count                    = 5
+Total read  duration            = 38162 ms
+Total write duration            = 40825 ms
+Total reading ops               = 3000000
+Total writing ops               = 5000000
+Average duration per reading op = 12720 ns
+Average duration per writing op = 8165 ns
+Average reading ops per second  = 78612.3757636822
+Average writing ops per second  = 122503.09441149868
+
+
+================================== STATS FOR RUN 58 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 4
+Writer count                    = 5
+Total read  duration            = 91868 ms
+Total write duration            = 83186 ms
+Total reading ops               = 4000000
+Total writing ops               = 5000000
+Average duration per reading op = 22967 ns
+Average duration per writing op = 16637 ns
+Average reading ops per second  = 43542.084795485636
+Average writing ops per second  = 60121.30705859908
+
+
+================================== STATS FOR RUN 59 ==================================
+Item class                      = de.uniluebeck.itm.tr.iwsn.messages.Message
+Reader count                    = 5
+Writer count                    = 5
+Total read  duration            = 169527 ms
+Total write duration            = 119512 ms
+Total reading ops               = 5000000
+Total writing ops               = 5000000
+Average duration per reading op = 33905 ns
+Average duration per writing op = 23902 ns
+Average reading ops per second  = 29504.620866487916
+Average writing ops per second  = 41847.72688825581

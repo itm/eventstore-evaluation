@@ -20,6 +20,12 @@
             <groupId>de.uniluebeck.itm</groupId>
             <artifactId>tr.iwsn-common</artifactId>
             <version>0.9.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -29,12 +35,12 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.7</version>
+            <version>[1.7,1.8)</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.7</version>
+            <version>[1.7,1.8)</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

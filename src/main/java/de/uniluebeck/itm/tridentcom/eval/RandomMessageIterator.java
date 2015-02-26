@@ -22,29 +22,41 @@ public class RandomMessageIterator implements Iterator<Message> {
 
     @Override
     public Message next() {
+
         Message.Builder builder = Message.newBuilder();
         double rand = random.nextDouble();
-        Event.Builder event = null;
+        Event.Builder event;
+
         if (rand < 0.02) {
+
             DevicesAttachedEvent.Builder dae = DevicesAttachedEvent
                     .newBuilder()
                     .addNodeUrns("urn:wisebed:uzl1:0x" + Integer.toHexString(random.nextInt()))
                     .setTimestamp(DateTime.now().getMillis());
-            event = Event.newBuilder().setDevicesAttachedEvent(dae);
+            event = Event.newBuilder()
+                    .setEventId(random.nextLong())
+                    .setType(Event.Type.DEVICES_ATTACHED)
+                    .setDevicesAttachedEvent(dae);
         } else {
+
             try {
+
                 String payload = "abcdefghijklmnopfjalskdkrwueriosdfiocxvkljxkjfaln,mcxnv,nmcv,ymxnca,msdnfaklsjc";
                 UpstreamMessageEvent.Builder ume = UpstreamMessageEvent.newBuilder()
                         .setMessageBytes(ByteString.copyFrom(payload, "UTF-8"))
                         .setSourceNodeUrn("urn:wisebed:uzl1:0x" + Integer.toHexString(random.nextInt()))
                         .setTimestamp(DateTime.now().getMillis());
-                event = Event.newBuilder().setUpstreamMessageEvent(ume);
+                event = Event.newBuilder()
+                        .setEventId(random.nextLong())
+                        .setType(Event.Type.UPSTREAM_MESSAGE)
+                        .setUpstreamMessageEvent(ume);
+
             } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
 
         }
-        builder.setEvent(event);
-        return builder.build();
+
+        return builder.setType(Message.Type.EVENT).setEvent(event).build();
     }
 }
