@@ -15,6 +15,16 @@ class RunStatsImpl<T> implements RunStats<T> {
 
     private static class Measurement {
         long amount;
+
+        @Override
+        public String toString() {
+            final StringBuffer sb = new StringBuffer("Measurement{");
+            sb.append("amount=").append(amount);
+            sb.append(", stopwatch=").append(stopwatch);
+            sb.append('}');
+            return sb.toString();
+        }
+
         Stopwatch stopwatch;
 
         public Measurement(long amount, Stopwatch stopwatch) {
@@ -28,8 +38,8 @@ class RunStatsImpl<T> implements RunStats<T> {
     private final int readerCount;
     private final int writerCount;
 
-    private List<Measurement> reads = newLinkedList();
-    private List<Measurement> writes = newLinkedList();
+    private final List<Measurement> reads = newLinkedList();
+    private final List<Measurement> writes = newLinkedList();
 
     public RunStatsImpl(Class<T> clazz, int runNr, int readerCount, int writerCount) {
         this.clazz = clazz;
@@ -50,7 +60,9 @@ class RunStatsImpl<T> implements RunStats<T> {
 
     @Override
     public Duration getTotalReadDuration() {
-        return sumUpDuration(reads);
+        synchronized (reads) {
+            return sumUpDuration(reads);
+        }
     }
 
     @Override
@@ -70,12 +82,16 @@ class RunStatsImpl<T> implements RunStats<T> {
 
     @Override
     public double getAvgReadingOpsPer(ChronoUnit unit) {
-        return calculateAverageDurationPerUnitOverAllMeasurements(unit, reads);
+        synchronized (reads) {
+            return calculateAverageDurationPerUnitOverAllMeasurements(unit, reads);
+        }
     }
 
     @Override
     public BigInteger getReadAmountTotal() {
-        return sumUpAmounts(reads);
+        synchronized (reads) {
+            return sumUpAmounts(reads);
+        }
     }
 
     @Override
@@ -98,7 +114,9 @@ class RunStatsImpl<T> implements RunStats<T> {
     }
 
     void addRead(long amount, Stopwatch stopwatch) {
-        reads.add(new Measurement(amount, stopwatch));
+        synchronized (reads) {
+            reads.add(new Measurement(amount, stopwatch));
+        }
     }
 
     private BigInteger sumUpAmounts(List<Measurement> measurements) {
