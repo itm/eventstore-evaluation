@@ -1,4 +1,4 @@
-package de.uniluebeck.itm.tridentcom.eval;
+package de.uniluebeck.itm.tr.eventstore.eval;
 
 import com.google.protobuf.ByteString;
 import de.uniluebeck.itm.tr.iwsn.messages.DevicesAttachedEvent;

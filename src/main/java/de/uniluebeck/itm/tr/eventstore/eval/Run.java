@@ -1,8 +1,9 @@
-package de.uniluebeck.itm.tridentcom.eval;
+package de.uniluebeck.itm.tr.eventstore.eval;
 
 import com.google.common.base.Function;
 import com.google.common.base.Stopwatch;
 import com.google.common.util.concurrent.AbstractService;
+import de.uniluebeck.itm.eventstore.CloseableIterator;
 import de.uniluebeck.itm.eventstore.EventContainer;
 import de.uniluebeck.itm.eventstore.EventStore;
 import de.uniluebeck.itm.util.scheduler.SchedulerService;
@@ -146,11 +147,12 @@ public class Run<T> extends AbstractService {
 
                 try {
 
-                    Iterator<EventContainer<T>> iterator = store.getAllEvents();
+                    CloseableIterator<EventContainer<T>> iterator = store.getAllEvents();
                     while (read < readAmount && iterator.hasNext()) {
                         read++;
                         dummyHash |= iterator.next().getEvent().hashCode();
                     }
+                    iterator.close();
 
                 } catch (IOException e) {
                     future.completeExceptionally(e);
