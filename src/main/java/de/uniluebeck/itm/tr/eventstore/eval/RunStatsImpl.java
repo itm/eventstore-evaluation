@@ -116,10 +116,16 @@ class RunStatsImpl<T> implements RunStats<T> {
     private double calculateAverageDurationPerUnitOverAllMeasurements(ChronoUnit unit,
                                                                       List<Measurement> measurements) {
         MovingAverage movingAverage = new MovingAverage(measurements.size());
-        measurements.forEach(m -> {
-            BigDecimal divisor = BigDecimal.valueOf(m.stopwatch.elapsed(TimeUnit.NANOSECONDS));
-            movingAverage.add((double) m.amount / divisor.longValueExact());
-        });
+        try {
+            measurements.forEach(m -> {
+                BigDecimal divisor = BigDecimal.valueOf(m.stopwatch.elapsed(TimeUnit.NANOSECONDS));
+                movingAverage.add((double) m.amount / divisor.longValueExact());
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("measurements.size() == " + measurements.size());
+            measurements.forEach(System.out::println);
+        }
         return movingAverage.getAverage() * unit.getDuration().toNanos();
     }
 
