@@ -5,9 +5,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.uniluebeck.itm</groupId>
-	<artifactId>tridentcom.evaluation</artifactId>
-	<name>TridentCom Evaluation</name>
+	<groupId>de.uniluebeck.itm.tr</groupId>
+	<artifactId>eventstore-evaluation</artifactId>
+	<name>Testbed Runtime EventStore Evaluation</name>
 	<version>1.0-SNAPSHOT</version>
 
 	<dependencies>
