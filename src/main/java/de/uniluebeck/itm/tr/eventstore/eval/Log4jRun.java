@@ -12,10 +12,12 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Semaphore;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Lists.newLinkedList;
 
 public class Log4jRun<T> extends AbstractService implements Run<T> {
 
@@ -102,10 +104,14 @@ public class Log4jRun<T> extends AbstractService implements Run<T> {
     private Runnable createWriter(Logger store, CompletableFuture<Stopwatch> future) {
         return () -> {
 
+            final LinkedList<T> data = newLinkedList();
+            for (int i = 0; i < writeAmount; i++) {
+                data.add(generator.next());
+            }
             Stopwatch stopwatch = Stopwatch.createStarted();
 
-            for (int i = 0; i < writeAmount; i++) {
-                store.info("{}", generator.next());
+            for(T d : data) {
+                store.info("{}", d);
             }
 
             stopwatch.stop();

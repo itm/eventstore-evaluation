@@ -10,6 +10,7 @@ import de.uniluebeck.itm.util.scheduler.SchedulerService;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
@@ -169,22 +170,25 @@ public class EventStoreRun<T> extends AbstractService implements Run<T> {
 
     private Runnable createWriter(EventStore<T> store, CompletableFuture<Stopwatch> future) {
         return () -> {
+            final LinkedList<T> data = newLinkedList();
+            for (int i = 0; i < writeAmount; i++) {
+                data.add(generator.next());
+            }
 
-            Stopwatch stopwatch = Stopwatch.createStarted();
 
             try {
-
-                for (int i = 0; i < writeAmount; i++) {
-                    store.storeEvent(generator.next());
+                Stopwatch stopwatch = Stopwatch.createStarted();
+                for (T d : data) {
+                    store.storeEvent(d);
                 }
+                stopwatch.stop();
 
+                future.complete(stopwatch);
             } catch (IOException e) {
                 future.completeExceptionally(e);
                 return;
             }
 
-            stopwatch.stop();
-            future.complete(stopwatch);
         };
     }
 

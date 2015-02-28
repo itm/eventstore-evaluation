@@ -55,7 +55,8 @@ public class Evaluation {
         final RandomStringIterator stringIterator = new RandomStringIterator(minLength, maxLength);
 
 
-        runEventStoreEvaluation(executor, String.class, stringIterator, warmup, warmup, STRING_SERIALIZER, STRING_DESERIALIZER, readers, writers);
+        warmup(executor, warmup, readers, writers, stringIterator);
+
         /*runLog4jEvaluation(executor, String.class, stringIterator, warmup, writers);*/
         System.out.println(RunStatsImpl.csvHeader());
         System.out.println("---- Log4j2: ----");
@@ -89,6 +90,14 @@ public class Evaluation {
 
         executor.stopAsync().awaitTerminated();
         System.out.println("Finished");
+    }
+
+    private static void warmup(SchedulerService executor, long warmup, int readers, int writers, RandomStringIterator stringIterator) {
+        System.out.println("---- WARMUP ----");
+        runLog4j2Evaluation(executor, String.class, stringIterator, warmup, writers).stream().map(RunStats::toCsv).forEach(System.out::println);
+        runEventStoreEvaluation(executor, String.class, stringIterator, warmup, warmup, STRING_SERIALIZER, STRING_DESERIALIZER, readers, writers).stream().map(RunStats::toCsv).forEach(System.out::println);
+        System.out.println("---- WARMUP END ----");
+        System.out.println();
     }
 
     private static <T> List<RunStats> runEventStoreEvaluation(SchedulerService executor,
