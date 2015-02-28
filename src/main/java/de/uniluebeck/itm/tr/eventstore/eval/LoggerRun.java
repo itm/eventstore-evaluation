@@ -1,10 +1,8 @@
 package de.uniluebeck.itm.tr.eventstore.eval;
 
 import com.google.common.base.Stopwatch;
-import com.google.common.io.Files;
 import com.google.common.util.concurrent.AbstractService;
 import de.uniluebeck.itm.util.scheduler.SchedulerService;
-import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.RollingFileAppender;
 import org.slf4j.Logger;
@@ -13,13 +11,10 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Semaphore;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.collect.Lists.newLinkedList;
 
 public class LoggerRun<T> extends AbstractService implements Run<T> {
 

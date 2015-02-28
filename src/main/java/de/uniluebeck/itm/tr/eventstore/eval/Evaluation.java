@@ -45,15 +45,17 @@ public class Evaluation {
 
         final long writeAmount = 1000000;
         final long readAmount = 0;
+        final int readers = 0;
+        final int writers = 5;
         final int minLength = 40;
         final int maxLength = 120;
 
         final RandomMessageIterator messageGenerator = new RandomMessageIterator(minLength, maxLength);
         final RandomStringIterator stringIterator = new RandomStringIterator(minLength, maxLength);
 
-        final List<RunStats> trash = runEventStoreEvaluation(executor, String.class, stringIterator, 10000, 10000, STRING_SERIALIZER, STRING_DESERIALIZER);
-        final List<RunStats> trash2= runLoggerEvaluation(executor, String.class, stringIterator, 10000);
-        final List<RunStats> eventStorestringStats = runEventStoreEvaluation(executor, String.class, stringIterator, readAmount, writeAmount, STRING_SERIALIZER, STRING_DESERIALIZER);
+        final List<RunStats> trash = runEventStoreEvaluation(executor, String.class, stringIterator, 10000, 10000, STRING_SERIALIZER, STRING_DESERIALIZER, readers, writers);
+        final List<RunStats> trash2= runLoggerEvaluation(executor, String.class, stringIterator, 10000, writers);
+        final List<RunStats> eventStorestringStats = runEventStoreEvaluation(executor, String.class, stringIterator, readAmount, writeAmount, STRING_SERIALIZER, STRING_DESERIALIZER, readers, writers);
 
         System.out.println(RunStatsImpl.csvHeader());
         eventStorestringStats.stream().map(RunStats::toCsv).forEach(System.out::println);
@@ -70,7 +72,7 @@ public class Evaluation {
 
         System.out.println("---- Log4j: ----");
 
-        final List<RunStats> loggerStringStats = runLoggerEvaluation(executor, String.class, stringIterator, writeAmount);
+        final List<RunStats> loggerStringStats = runLoggerEvaluation(executor, String.class, stringIterator, writeAmount, readers);
         loggerStringStats.stream().map(RunStats::toCsv).forEach(System.out::println);
 
         executor.stopAsync().awaitTerminated();
@@ -80,11 +82,11 @@ public class Evaluation {
     private static <T> List<RunStats> runEventStoreEvaluation(SchedulerService executor,
                                                               Class<T> clazz, Iterator<T> generator,
                                                               long readAmount, long writeAmount,
-                                                              Function<T, byte[]> serializer, Function<byte[], T> deserializer) {
+                                                              Function<T, byte[]> serializer, Function<byte[], T> deserializer, int maxReaders, int maxWriters) {
 
         final List<RunStats> stats = newLinkedList();
-        for (int writerCount = 1; writerCount <= 5; writerCount++) {
-            for (int readerCount = 0; readerCount <= 5; readerCount++) {
+        for (int writerCount = 1; writerCount <= maxWriters; writerCount++) {
+            for (int readerCount = 0; readerCount <= maxReaders; readerCount++) {
 
                 Run<T> run = new EventStoreRun<>(
                         executor, readAmount, writeAmount, readerCount, writerCount,
@@ -101,10 +103,9 @@ public class Evaluation {
         return stats;
     }
 
-    private static <T> List<RunStats> runLoggerEvaluation(SchedulerService executor, Class<T> clazz, Iterator<T> generator, long writeAmount) {
+    private static <T> List<RunStats> runLoggerEvaluation(SchedulerService executor, Class<T> clazz, Iterator<T> generator, long writeAmount, int maxWriters) {
         final List<RunStats> stats = newLinkedList();
-        for (int writerCount = 1; writerCount <= 5; writerCount++) {
-            for (int readerCount = 0; readerCount <= 5; readerCount++) {
+        for (int writerCount = 1; writerCount <= maxWriters; writerCount++) {
 
                 Run<T> run = new LoggerRun<>(executor,
                         writeAmount, writerCount, generator, clazz
@@ -115,7 +116,6 @@ public class Evaluation {
 
                 stats.add(run.getStats());
 
-            }
         }
         return stats;
     }
