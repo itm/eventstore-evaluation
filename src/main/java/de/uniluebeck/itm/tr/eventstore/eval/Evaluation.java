@@ -63,20 +63,22 @@ public class Evaluation {
         final List<RunStats> log4j2StringStats = runLog4j2Evaluation(executor, String.class, stringIterator, writeAmount, writers);
         log4j2StringStats.stream().map(RunStats::toCsv).forEach(System.out::println);
 
-        System.out.println("---- Event Store: ----");
+        System.out.println("---- Event Store (Strings): ----");
         final List<RunStats> eventStoreStringStats = runEventStoreEvaluation(executor, String.class, stringIterator, readAmount, writeAmount, STRING_SERIALIZER, STRING_DESERIALIZER, readers, writers);
 
         eventStoreStringStats.stream().map(RunStats::toCsv).forEach(System.out::println);
 
 
-        /*final List<RunStats> evenStoremessageStats = runEventStoreEvaluation(
+        System.out.println("---- Event Store (Messages): ----");
+
+        final List<RunStats> evenStoremessageStats = runEventStoreEvaluation(
                 executor,
                 Message.class, messageGenerator,
                 readAmount, writeAmount,
-                MESSAGE_SERIALIZER, MESSAGE_DESERIALIZER
+                MESSAGE_SERIALIZER, MESSAGE_DESERIALIZER, readers, writers
         );
 
-        evenStoremessageStats.stream().map(RunStats::toCsv).forEach(System.out::println); */
+        evenStoremessageStats.stream().map(RunStats::toCsv).forEach(System.out::println);
 
 
 

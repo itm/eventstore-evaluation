@@ -35,7 +35,7 @@ public class RandomMessageIterator implements Iterator<Message> {
 
             try {
 
-                String payload = "abcdefghijklmnopfjalskdkrwueriosdfiocxvkljxkjfaln,mcxnv,nmcv,ymxnca,msdnfaklsjc";
+                String payload = stringIterator.next();
                 UpstreamMessageEvent.Builder ume = UpstreamMessageEvent.newBuilder()
                         .setMessageBytes(ByteString.copyFrom(payload, "UTF-8"))
                         .setSourceNodeUrn("urn:wisebed:uzl1:0x" + Integer.toHexString(random.nextInt()))
