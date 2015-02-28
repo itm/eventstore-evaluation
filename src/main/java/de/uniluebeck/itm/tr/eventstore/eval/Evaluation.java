@@ -72,7 +72,7 @@ public class Evaluation {
 
         System.out.println("---- Log4j: ----");
 
-        final List<RunStats> loggerStringStats = runLoggerEvaluation(executor, String.class, stringIterator, writeAmount, readers);
+        final List<RunStats> loggerStringStats = runLoggerEvaluation(executor, String.class, stringIterator, writeAmount, writers);
         loggerStringStats.stream().map(RunStats::toCsv).forEach(System.out::println);
 
         executor.stopAsync().awaitTerminated();
