@@ -86,4 +86,6 @@ public interface RunStats<T> {
      * @return number of parallel writers
      */
     public int getWriterCount();
+
+    public String toCsv();
 }

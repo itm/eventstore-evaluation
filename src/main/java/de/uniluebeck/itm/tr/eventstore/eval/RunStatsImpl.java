@@ -1,5 +1,6 @@
 package de.uniluebeck.itm.tr.eventstore.eval;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Stopwatch;
 
 import java.math.BigDecimal;
@@ -173,5 +174,23 @@ class RunStatsImpl<T> implements RunStats<T> {
         s += "Average writing ops per second  = " + getAvgWritingOpsPer(ChronoUnit.SECONDS) + "\n";
         s += "\n";
         return s;
+    }
+
+    public String toCsv() {
+        return Joiner.on(",").join(clazz.getCanonicalName(),
+                getReaderCount(),
+                getWriterCount(),
+                getTotalReadDuration().toMillis(),
+                getTotalWriteDuration().toMillis(),
+                getReadAmountTotal(),
+                getWriteAmountTotal(),
+                getAvgDurationForReads().toNanos(),
+                getAvgDurationForWrites().toNanos(),
+                getAvgReadingOpsPer(ChronoUnit.SECONDS),
+                getAvgWritingOpsPer(ChronoUnit.SECONDS)).toString();
+    }
+
+    public static String csvHeader() {
+        return "Class, Reader Count, Writer Count, Total Read Duration, Total Write Duration, Total Reading Ops, Total Writing Ops, AVG Duration Per Reading Op, AVG Duration Per Writing Op, AVG Reading Ops Per Second, AVG Writing Ops Per Second";
     }
 }

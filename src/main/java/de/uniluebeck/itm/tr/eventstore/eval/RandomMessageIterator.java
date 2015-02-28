@@ -13,7 +13,13 @@ import java.util.Random;
 
 public class RandomMessageIterator implements Iterator<Message> {
 
+    private final RandomStringIterator stringIterator;
+
     private final Random random = new Random();
+
+    public RandomMessageIterator(final int minPayloadLength, final int maxPayloadLength) {
+        stringIterator = new RandomStringIterator(minPayloadLength, maxPayloadLength);
+    }
 
     @Override
     public boolean hasNext() {
@@ -26,18 +32,6 @@ public class RandomMessageIterator implements Iterator<Message> {
         Message.Builder builder = Message.newBuilder();
         double rand = random.nextDouble();
         Event.Builder event;
-
-        if (rand < 0.02) {
-
-            DevicesAttachedEvent.Builder dae = DevicesAttachedEvent
-                    .newBuilder()
-                    .addNodeUrns("urn:wisebed:uzl1:0x" + Integer.toHexString(random.nextInt()))
-                    .setTimestamp(DateTime.now().getMillis());
-            event = Event.newBuilder()
-                    .setEventId(random.nextLong())
-                    .setType(Event.Type.DEVICES_ATTACHED)
-                    .setDevicesAttachedEvent(dae);
-        } else {
 
             try {
 
@@ -55,7 +49,6 @@ public class RandomMessageIterator implements Iterator<Message> {
                 throw new RuntimeException(e);
             }
 
-        }
 
         return builder.setType(Message.Type.EVENT).setEvent(event).build();
     }
