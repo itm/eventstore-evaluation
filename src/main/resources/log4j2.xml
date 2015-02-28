@@ -4,10 +4,20 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%msg%n"/>
         </Console>
+        <File name="File" fileName="log4j2.log">
+            <PatternLayout>
+                <pattern>%m%n</pattern>
+            </PatternLayout>
+        </File>
+        <RandomAccessFile name="RandomAccessFile" fileName="async.log" immediateFlush="false" append="false">
+            <PatternLayout>
+                <Pattern>%m%n</Pattern>
+            </PatternLayout>
+        </RandomAccessFile>
     </Appenders>
     <Loggers>
         <Root level="info">
-            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RandomAccessFile"/>
         </Root>
     </Loggers>
 </Configuration>

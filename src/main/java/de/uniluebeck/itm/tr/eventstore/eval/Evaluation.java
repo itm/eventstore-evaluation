@@ -54,14 +54,20 @@ public class Evaluation {
         final RandomMessageIterator messageGenerator = new RandomMessageIterator(minLength, maxLength);
         final RandomStringIterator stringIterator = new RandomStringIterator(minLength, maxLength);
 
-        /*
+
         runEventStoreEvaluation(executor, String.class, stringIterator, warmup, warmup, STRING_SERIALIZER, STRING_DESERIALIZER, readers, writers);
-        runLog4jEvaluation(executor, String.class, stringIterator, warmup, writers);
+        /*runLog4jEvaluation(executor, String.class, stringIterator, warmup, writers);*/
+        System.out.println(RunStatsImpl.csvHeader());
+        System.out.println("---- Log4j2: ----");
+
+        final List<RunStats> log4j2StringStats = runLog4j2Evaluation(executor, String.class, stringIterator, writeAmount, writers);
+        log4j2StringStats.stream().map(RunStats::toCsv).forEach(System.out::println);
+
+        System.out.println("---- Event Store: ----");
         final List<RunStats> eventStoreStringStats = runEventStoreEvaluation(executor, String.class, stringIterator, readAmount, writeAmount, STRING_SERIALIZER, STRING_DESERIALIZER, readers, writers);
 
-        System.out.println(RunStatsImpl.csvHeader());
         eventStoreStringStats.stream().map(RunStats::toCsv).forEach(System.out::println);
-        */
+
 
         /*final List<RunStats> evenStoremessageStats = runEventStoreEvaluation(
                 executor,
@@ -72,10 +78,7 @@ public class Evaluation {
 
         evenStoremessageStats.stream().map(RunStats::toCsv).forEach(System.out::println); */
 
-        System.out.println("---- Log4j2: ----");
 
-        final List<RunStats> log4j2StringStats = runLog4j2Evaluation(executor, String.class, stringIterator, writeAmount, writers);
-        log4j2StringStats.stream().map(RunStats::toCsv).forEach(System.out::println);
 
         System.out.println("---- Log4j: ----");
 
