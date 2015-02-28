@@ -13,12 +13,14 @@ import java.util.Random;
 
 public class RandomMessageIterator implements Iterator<Message> {
 
-    private final RandomStringIterator stringIterator;
 
-    private final Random random = new Random();
+    private final Random random = new Random(System.currentTimeMillis());
+    private final int minPayloadLength;
+    private final int maxPayloadLength;
 
     public RandomMessageIterator(final int minPayloadLength, final int maxPayloadLength) {
-        stringIterator = new RandomStringIterator(minPayloadLength, maxPayloadLength);
+        this.minPayloadLength = minPayloadLength;
+        this.maxPayloadLength = maxPayloadLength;
     }
 
     @Override
@@ -30,24 +32,18 @@ public class RandomMessageIterator implements Iterator<Message> {
     public Message next() {
 
         Message.Builder builder = Message.newBuilder();
-        double rand = random.nextDouble();
         Event.Builder event;
 
-            try {
-
-                String payload = stringIterator.next();
+                byte[] b = new byte[random.nextInt(maxPayloadLength-minPayloadLength)+minPayloadLength];
+                random.nextBytes(b);
                 UpstreamMessageEvent.Builder ume = UpstreamMessageEvent.newBuilder()
-                        .setMessageBytes(ByteString.copyFrom(payload, "UTF-8"))
+                        .setMessageBytes(ByteString.copyFrom(b))
                         .setSourceNodeUrn("urn:wisebed:uzl1:0x" + Integer.toHexString(random.nextInt()))
                         .setTimestamp(DateTime.now().getMillis());
                 event = Event.newBuilder()
                         .setEventId(random.nextLong())
                         .setType(Event.Type.UPSTREAM_MESSAGE)
                         .setUpstreamMessageEvent(ume);
-
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException(e);
-            }
 
 
         return builder.setType(Message.Type.EVENT).setEvent(event).build();
