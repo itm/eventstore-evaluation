@@ -57,18 +57,41 @@ public class Evaluation {
 
         warmup(executor, warmup, readers, writers, stringIterator);
 
-        /*runLog4jEvaluation(executor, String.class, stringIterator, warmup, writers);*/
         System.out.println(RunStatsImpl.csvHeader());
-        System.out.println("---- Log4j2: ----");
+        log4j2Evaluation(executor, writeAmount, writers, stringIterator);
+        eventStoreStringEvaluation(executor, writeAmount, readAmount, readers, writers, stringIterator);
+        eventStoreMessageEvaluation(executor, writeAmount, readAmount, readers, writers, messageGenerator);
+        log4jEvaluation(executor, writeAmount, writers, stringIterator);
 
-        final List<RunStats> log4j2StringStats = runLog4j2Evaluation(executor, String.class, stringIterator, writeAmount, writers);
-        log4j2StringStats.stream().map(RunStats::toCsv).forEach(System.out::println);
+        executor.stopAsync().awaitTerminated();
 
+        System.out.println("Finished");
+    }
+
+    private static void sleep() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ignored) {
+
+        }
+    }
+
+    private static void log4jEvaluation(SchedulerService executor, long writeAmount, int writers, RandomStringIterator stringIterator) {
+        System.out.println("---- Log4j: ----");
+
+        final List<RunStats> loggerStringStats = runLog4jEvaluation(executor, String.class, stringIterator, writeAmount, writers);
+        loggerStringStats.stream().map(RunStats::toCsv).forEach(System.out::println);
+    }
+
+    private static void eventStoreStringEvaluation(SchedulerService executor, long writeAmount, long readAmount, int readers, int writers, RandomStringIterator stringIterator) {
         System.out.println("---- Event Store (Strings): ----");
         final List<RunStats> eventStoreStringStats = runEventStoreEvaluation(executor, String.class, stringIterator, readAmount, writeAmount, STRING_SERIALIZER, STRING_DESERIALIZER, readers, writers);
 
         eventStoreStringStats.stream().map(RunStats::toCsv).forEach(System.out::println);
+    }
 
+
+    private static void eventStoreMessageEvaluation(SchedulerService executor, long writeAmount, long readAmount, int readers, int writers, RandomMessageIterator messageGenerator) {
 
         System.out.println("---- Event Store (Messages): ----");
 
@@ -80,16 +103,13 @@ public class Evaluation {
         );
 
         evenStoremessageStats.stream().map(RunStats::toCsv).forEach(System.out::println);
+    }
 
+    private static void log4j2Evaluation(SchedulerService executor, long writeAmount, int writers, RandomStringIterator stringIterator) {
+        System.out.println("---- Log4j2: ----");
 
-
-        System.out.println("---- Log4j: ----");
-
-        final List<RunStats> loggerStringStats = runLog4jEvaluation(executor, String.class, stringIterator, writeAmount, writers);
-        loggerStringStats.stream().map(RunStats::toCsv).forEach(System.out::println);
-
-        executor.stopAsync().awaitTerminated();
-        System.out.println("Finished");
+        final List<RunStats> log4j2StringStats = runLog4j2Evaluation(executor, String.class, stringIterator, writeAmount, writers);
+        log4j2StringStats.stream().map(RunStats::toCsv).forEach(System.out::println);
     }
 
     private static void warmup(SchedulerService executor, long warmup, int readers, int writers, RandomStringIterator stringIterator) {
@@ -106,6 +126,7 @@ public class Evaluation {
                                                               Function<T, byte[]> serializer, Function<byte[], T> deserializer, int maxReaders, int maxWriters) {
 
         final List<RunStats> stats = newLinkedList();
+        System.gc();
         for (int writerCount = 1; writerCount <= maxWriters; writerCount++) {
             for (int readerCount = 0; readerCount <= maxReaders; readerCount++) {
 
@@ -118,7 +139,8 @@ public class Evaluation {
                 run.awaitTerminated();
 
                 stats.add(run.getStats());
-
+                System.gc();
+                sleep();
             }
         }
         return stats;
@@ -126,6 +148,7 @@ public class Evaluation {
 
     private static <T> List<RunStats> runLog4jEvaluation(SchedulerService executor, Class<T> clazz, Iterator<T> generator, long writeAmount, int maxWriters) {
         final List<RunStats> stats = newLinkedList();
+        System.gc();
         for (int writerCount = 1; writerCount <= maxWriters; writerCount++) {
 
             Run<T> run = new Log4jRun<>(executor,
@@ -136,6 +159,8 @@ public class Evaluation {
             run.awaitTerminated();
 
             stats.add(run.getStats());
+            System.gc();
+            sleep();
 
         }
         return stats;
@@ -143,6 +168,7 @@ public class Evaluation {
 
     private static <T> List<RunStats> runLog4j2Evaluation(SchedulerService executor, Class<T> clazz, Iterator<T> generator, long writeAmount, int maxWriters) {
         final List<RunStats> stats = newLinkedList();
+        System.gc();
         for (int writerCount = 1; writerCount <= maxWriters; writerCount++) {
 
             Run<T> run = new Log4j2Run<>(executor,
@@ -153,7 +179,8 @@ public class Evaluation {
             run.awaitTerminated();
 
             stats.add(run.getStats());
-
+            System.gc();
+            sleep();
         }
         return stats;
     }
