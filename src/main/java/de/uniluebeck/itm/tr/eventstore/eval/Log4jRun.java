@@ -77,7 +77,7 @@ public class Log4jRun<T> extends AbstractService implements Run<T> {
 
         try {
 
-            for (int i = 0; i < writerCount; i++) {
+            for (long i = 0; i < writerCount; i++) {
 
                 Logger store = LoggerFactory.getLogger("logger-" + runNr);
                 CompletableFuture<Stopwatch> future = new CompletableFuture<>();

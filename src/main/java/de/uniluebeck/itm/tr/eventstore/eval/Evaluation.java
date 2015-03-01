@@ -44,7 +44,7 @@ public class Evaluation {
 
         final long warmup = 500000;
 
-        final long writeAmount = 1000000;
+        final long writeAmount = 5000000;
         final long readAmount = 0;
         final int readers = 0;
         final int writers = 5;

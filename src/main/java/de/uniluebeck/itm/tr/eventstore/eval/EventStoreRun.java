@@ -171,7 +171,7 @@ public class EventStoreRun<T> extends AbstractService implements Run<T> {
     private Runnable createWriter(EventStore<T> store, CompletableFuture<Stopwatch> future) {
         return () -> {
             final LinkedList<T> data = newLinkedList();
-            for (int i = 0; i < writeAmount; i++) {
+            for (long i = 0; i < writeAmount; i++) {
                 data.add(generator.next());
             }
 

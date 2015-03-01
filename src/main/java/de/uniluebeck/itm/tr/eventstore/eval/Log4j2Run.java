@@ -88,7 +88,7 @@ public class Log4j2Run<T> extends AbstractService implements Run<T> {
         return () -> {
 
             final LinkedList<T> data = newLinkedList();
-            for (int i = 0; i < writeAmount; i++) {
+            for (long i = 0; i < writeAmount; i++) {
                 data.add(generator.next());
             }
             Stopwatch stopwatch = Stopwatch.createStarted();

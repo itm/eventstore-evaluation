@@ -21,7 +21,7 @@ public class RandomStringIterator implements Iterator<String>{
 
     @Override
     public String next() {
-        byte[] b = new byte[random.nextInt(maxLength-minLength)+minLength];
+        final byte[] b = new byte[random.nextInt(maxLength-minLength)+minLength];
         random.nextBytes(b);
         return new String(b);
     }
