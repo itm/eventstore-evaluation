@@ -2,6 +2,7 @@ package de.uniluebeck.itm.tr.eventstore.eval;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Stopwatch;
+import de.uniluebeck.itm.tr.eventstore.eval.generators.Generator;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -19,11 +20,7 @@ class RunStatsImpl<T> implements RunStats<T> {
 
         @Override
         public String toString() {
-            final StringBuffer sb = new StringBuffer("Measurement{");
-            sb.append("amount=").append(amount);
-            sb.append(", stopwatch=").append(stopwatch);
-            sb.append('}');
-            return sb.toString();
+            return "Measurement{" + "amount=" + amount + ", stopwatch=" + stopwatch + '}';
         }
 
         Stopwatch stopwatch;
@@ -34,24 +31,22 @@ class RunStatsImpl<T> implements RunStats<T> {
         }
     }
 
-    private final Class<T> clazz;
+    private final Params params;
     private final int runNr;
-    private final int readerCount;
-    private final int writerCount;
+    private final Generator<T> generator;
 
     private final List<Measurement> reads = newLinkedList();
     private final List<Measurement> writes = newLinkedList();
 
-    public RunStatsImpl(Class<T> clazz, int runNr, int readerCount, int writerCount) {
-        this.clazz = clazz;
+    public RunStatsImpl(int runNr, Params params, Generator<T> generator) {
+        this.params = params;
         this.runNr = runNr;
-        this.readerCount = readerCount;
-        this.writerCount = writerCount;
+        this.generator = generator;
     }
 
     @Override
     public Class<T> getItemClass() {
-        return clazz;
+        return generator.getGeneratedClass();
     }
 
     @Override
@@ -102,12 +97,12 @@ class RunStatsImpl<T> implements RunStats<T> {
 
     @Override
     public int getReaderCount() {
-        return readerCount;
+        return params.getReaderThreadCnt();
     }
 
     @Override
     public int getWriterCount() {
-        return writerCount;
+        return params.getWriterThreadCnt();
     }
 
     void addWritten(long amount, Stopwatch stopwatch) {
@@ -161,7 +156,7 @@ class RunStatsImpl<T> implements RunStats<T> {
     public String toString() {
         String s = "";
         s += "================================== STATS FOR RUN " + runNr + " ==================================\n";
-        s += "Item class                      = " + clazz.getCanonicalName() + "\n";
+        s += "Item class                      = " + generator.getGeneratedClass() + "\n";
         s += "Reader count                    = " + getReaderCount() + "\n";
         s += "Writer count                    = " + getWriterCount() + "\n";
         s += "Total read  duration            = " + getTotalReadDuration().toMillis() + " ms\n";
@@ -177,7 +172,7 @@ class RunStatsImpl<T> implements RunStats<T> {
     }
 
     public String toCsv() {
-        return Joiner.on(",").join(clazz.getCanonicalName(),
+        return Joiner.on(",").join(generator.getGeneratedClass().getCanonicalName(),
                 getReaderCount(),
                 getWriterCount(),
                 getTotalReadDuration().toMillis(),
@@ -187,7 +182,7 @@ class RunStatsImpl<T> implements RunStats<T> {
                 getAvgDurationForReads().toNanos(),
                 getAvgDurationForWrites().toNanos(),
                 getAvgReadingOpsPer(ChronoUnit.SECONDS),
-                getAvgWritingOpsPer(ChronoUnit.SECONDS)).toString();
+                getAvgWritingOpsPer(ChronoUnit.SECONDS));
     }
 
     public static String csvHeader() {

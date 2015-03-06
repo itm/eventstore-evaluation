@@ -1,0 +1,16 @@
+Class, Reader Count, Writer Count, Total Read Duration, Total Write Duration, Total Reading Ops,
+Total Writing Ops, AVG Duration Per Reading Op, AVG Duration Per Writing Op, AVG Reading Ops Per
+Second, AVG Writing Ops Per Second
+java.lang.String,0,1,0,3713,0,1000000,0,3713,0.0,269296.85704101337
+java.lang.String,0,2,0,8001,0,2000000,0,4000,0.0,249965.54426791047
+java.lang.String,0,3,0,15406,0,3000000,0,5135,0.0,194731.7197636231
+java.lang.String,0,4,0,29026,0,4000000,0,7256,0.0,137832.38660146762
+java.lang.String,0,5,0,42955,0,5000000,0,8591,0.0,116469.38069539232
+---- Log4j: ----
+java.lang.String,0,1,0,8279,0,1000000,0,8279,0.0,120783.07053802762
+java.lang.String,0,2,0,53169,0,2000000,0,26584,0.0,37615.717346972255
+java.lang.String,0,3,0,111447,0,3000000,0,37149,0.0,26920.073870779426
+java.lang.String,0,4,0,307412,0,4000000,0,76853,0.0,13011.873340687434
+java.lang.String,0,5,0,462710,0,5000000,0,92542,0.0,10806.46328858828
+Finished
+
