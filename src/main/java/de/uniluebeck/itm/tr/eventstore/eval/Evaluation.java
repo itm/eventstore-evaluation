@@ -56,13 +56,15 @@ public class Evaluation {
         System.out.println("Warm up done, executing runs. This could take a while...");
 
         // execute a run
-        List<RunStats> eventStoreStringStats = runEvaluation(executor, params, generator);
+        List<RunStats> stats = runEvaluation(executor, params, generator);
 
         System.out.println(RunStatsImpl.csvHeader());
-        eventStoreStringStats.stream().map(RunStats::toCsv).forEach(System.out::println);
+
+        stats.stream().map(RunStats::toCsv).forEach(System.out::println);
 
         executor.stopAsync().awaitTerminated();
         System.out.println("Finished");
+
     }
 
     private static <T> List<RunStats> runEvaluation(SchedulerService executor, Params params, Generator<T> generator) {

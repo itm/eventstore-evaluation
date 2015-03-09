@@ -63,67 +63,65 @@ public abstract class AbstractRun<T> extends AbstractService implements Run<T> {
         final Map<Integer, Runnable> readers = newHashMap();
         final Random random = new Random();
 
-        try {
+        System.out.println("Creating " + params.getWriterThreadCnt() + " stores and " + params.getWriterThreadCnt() + " writer threads");
 
-            System.out.println("Creating " + params.getWriterThreadCnt() + " stores and writer threads...");
+        // create a store for each writer and the writer before starting individual writers
+        for (int i = 1; i <= params.getWriterThreadCnt(); i++) {
 
-            // create a store for each writer and the writer before starting individual writers
-            for (int i = 1; i <= params.getWriterThreadCnt(); i++) {
+            Object store = createStore();
+            stores.put(i, store);
 
-                Object store = createStore();
-                stores.put(i, store);
-
-                CompletableFuture<Stopwatch> future = new CompletableFuture<>();
-                future.thenAccept((stopwatch) -> stats.addWritten(params.getWritesPerThread(), stopwatch))
-                        .thenRun(semaphore::release);
-                Runnable writer = createWriter(store, future);
-                writers.put(i, writer);
-                semaphore.acquire();
-            }
-
-            System.out.println("Creating " + params.getReaderThreadCnt() + " reader threads...");
-
-            // create readers
-            for (int i = 0; i < params.getReaderThreadCnt(); i++) {
-
-                CompletableFuture<Stopwatch> future = new CompletableFuture<>();
-                future.thenAccept((stopwatch) -> stats.addRead(params.getReadsPerThread(), stopwatch))
-                        .thenRun(semaphore::release);
-                Object randomStore = stores.get(random.nextInt(stores.size()));
-                readers.put(i, createReader(randomStore, future));
-            }
-
-            System.out.println("Starting " + params.getWriterThreadCnt() + " writers and " + params.getReaderThreadCnt() + " readers...");
-
-            // start writers
-            writers.forEach((nr, writer) -> {
-                try {
-                    semaphore.acquire();
-                    executor.execute(writer);
-                } catch (InterruptedException e) {
-                    System.err.println("InterruptedException while acquiring semaphore for writer!");
-                    e.printStackTrace();
-                    System.exit(1);
-                }
+            CompletableFuture<Stopwatch> future = new CompletableFuture<>();
+            future.thenAccept((stopwatch) -> {
+                stats.addWritten(params.getWritesPerThread(), stopwatch);
+                semaphore.release();
             });
-
-            // start readers
-            readers.forEach((nr, reader) -> {
-                try {
-                    semaphore.acquire();
-                    executor.execute(reader);
-                } catch (InterruptedException e) {
-                    System.err.println("InterruptedException while acquiring semaphore for reader!");
-                    e.printStackTrace();
-                    System.exit(1);
-                }
-            });
-
-            notifyStarted();
-
-        } catch (InterruptedException e) {
-            notifyFailed(e);
+            Runnable writer = createWriter(store, future);
+            writers.put(i, writer);
         }
+
+        System.out.println("Creating " + params.getReaderThreadCnt() + " reader threads");
+
+        // create readers
+        for (int i = 0; i < params.getReaderThreadCnt(); i++) {
+
+            CompletableFuture<Stopwatch> future = new CompletableFuture<>();
+            future.thenAccept((stopwatch) -> {
+                stats.addRead(params.getReadsPerThread(), stopwatch);
+                semaphore.release();
+            });
+            Object randomStore = stores.get(random.nextInt(stores.size()));
+            readers.put(i, createReader(randomStore, future));
+        }
+
+        System.out.println("Starting " + params.getWriterThreadCnt() + " writers and " + params.getReaderThreadCnt() + " readers");
+
+        // start writers
+        writers.forEach((nr, writer) -> {
+            try {
+                semaphore.acquire();
+                executor.execute(writer);
+            } catch (InterruptedException e) {
+                System.err.println("InterruptedException while acquiring semaphore for writer!");
+                e.printStackTrace();
+                System.exit(1);
+            }
+        });
+
+        // start readers
+        readers.forEach((nr, reader) -> {
+            try {
+                semaphore.acquire();
+                executor.execute(reader);
+            } catch (InterruptedException e) {
+                System.err.println("InterruptedException while acquiring semaphore for reader!");
+                e.printStackTrace();
+                System.exit(1);
+            }
+        });
+
+        notifyStarted();
+
 
         try {
 

@@ -72,13 +72,13 @@ public class EventStoreRun<T> extends AbstractRun<T> {
                     eventStore.storeEvent(generator.next());
                 }
 
+                stopwatch.stop();
+                future.complete(stopwatch);
+
             } catch (IOException e) {
                 future.completeExceptionally(e);
-                return;
             }
 
-            stopwatch.stop();
-            future.complete(stopwatch);
         };
     }
 
