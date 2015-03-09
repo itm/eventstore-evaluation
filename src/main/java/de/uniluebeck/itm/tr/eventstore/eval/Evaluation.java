@@ -49,23 +49,28 @@ public class Evaluation {
 
         // warm up phase, results will be dismissed
         if (params.getWarmUp()) {
-            System.out.println("Executing warm up phase...");
+            System.out.println("####### Executing warm up phase");
             executeRun(executor, params, generator, -1);
+            System.out.println("####### Warm up phase done, executing runs. This could take a while");
         }
-
-        System.out.println("Warm up done, executing runs. This could take a while...");
 
         // execute a run
         List<RunStats> stats = runEvaluation(executor, params, generator);
 
-        System.out.println(RunStatsImpl.csvHeader());
+        System.out.println(RunStatsHelper.toTableString(stats));
 
-        stats.stream().map(RunStats::toCsv).forEach(System.out::println);
+        printCSV(stats);
 
         executor.stopAsync().awaitTerminated();
         System.out.println("Finished");
 
         System.exit(0);
+    }
+
+
+    private static void printCSV(List<RunStats> stats) {
+        System.out.println(stats.get(0).toCsvHeaders());
+        stats.stream().map(RunStats::toCsv).forEach(System.out::println);
     }
 
     private static <T> List<RunStats> runEvaluation(SchedulerService executor, Params params, Generator<T> generator) {
@@ -75,8 +80,10 @@ public class Evaluation {
         for (int runNr = 1; runNr <= params.getRuns(); runNr++) {
 
             stats.add(executeRun(executor, params, generator, runNr));
-            gcIfConfigured(params, runNr);
 
+            if (params.getGcBetweenRuns() && runNr < params.getRuns()) {
+                gc();
+            }
         }
 
         return stats;
@@ -92,16 +99,14 @@ public class Evaluation {
         return run.getStats();
     }
 
-    private static void gcIfConfigured(Params params, int runNr) {
-        if (params.getGcBetweenRuns()) {
-            System.out.println("Running garbage collection after run " + runNr + "...");
-            try {
-                System.gc();
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                System.exit(1);
-            }
+    private static void gc() {
+        System.out.println("Running garbage collection");
+        try {
+            System.gc();
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            System.exit(1);
         }
     }
 }

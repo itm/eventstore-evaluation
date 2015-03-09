@@ -1,10 +1,40 @@
 package de.uniluebeck.itm.tr.eventstore.eval;
 
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Table;
+
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 public interface RunStats<T> {
+
+    public static enum Field {
+
+        CLASS,
+        READER_THREAD_COUNT,
+        WRITER_THREAD_COUNT,
+        TOTAL_READ_DURATION,
+        TOTAL_WRITE_DURATION,
+        TOTAL_READING_OPS,
+        TOTAL_WRITING_OPS,
+        AVG_DURATION_PER_READING_OP_NS,
+        AVG_DURATION_PER_WRITING_OP_NS,
+        AVG_READING_OPS_PER_S,
+        AVG_WRITING_OPS_PER_S;
+
+        public static String[] names() {
+            Field[] fields = values();
+            String[] names = new String[fields.length];
+            for (int i = 0; i < fields.length; i++) {
+                names[i] = fields[i].name();
+            }
+            return names;
+        }
+    }
 
     /**
      * Returns the class of items that were persisted and read.
@@ -87,5 +117,71 @@ public interface RunStats<T> {
      */
     public int getWriterCount();
 
+    /**
+     * Creates a CSV (comma-separated value) String of the values
+     *
+     * @return a CSV String
+     * @see
+     */
     public String toCsv();
+
+    /**
+     * Returns an array containing the headers for CSV output
+     *
+     * @return an array with CSV headers
+     */
+    public String[] csvHeaders();
+
+    /**
+     * Returns an array containing a CSV representation of this runs stats.
+     *
+     * @return an array with CSV values
+     */
+    public String[] csvValues();
+
+    /**
+     * Returns a String containing the header row for CSV output
+     *
+     * @return CSV header row
+     */
+    public String toCsvHeaders();
+
+    /**
+     * Returns the column names of the table representation (in a human-friendly sorting).
+     *
+     * @return tables column names
+     * @see RunStats#asTable(java.util.List)
+     */
+    default public String[] tableCols() {
+        return Field.names();
+    }
+
+    default public String get(Field field) {
+        switch (field) {
+            case CLASS:
+                return getItemClass().getCanonicalName();
+            case READER_THREAD_COUNT:
+                return String.valueOf(getReaderCount());
+            case WRITER_THREAD_COUNT:
+                return String.valueOf(getWriterCount());
+            case TOTAL_READ_DURATION:
+                return getTotalReadDuration().toString();
+            case TOTAL_WRITE_DURATION:
+                return getTotalWriteDuration().toString();
+            case TOTAL_READING_OPS:
+                return getReadAmountTotal().toString();
+            case TOTAL_WRITING_OPS:
+                return getWriteAmountTotal().toString();
+            case AVG_DURATION_PER_READING_OP_NS:
+                return String.valueOf(getAvgDurationForReads().toNanos());
+            case AVG_DURATION_PER_WRITING_OP_NS:
+                return String.valueOf(getAvgDurationForWrites().toNanos());
+            case AVG_READING_OPS_PER_S:
+                return String.valueOf(getAvgReadingOpsPer(ChronoUnit.SECONDS));
+            case AVG_WRITING_OPS_PER_S:
+                return String.valueOf(getAvgWritingOpsPer(ChronoUnit.SECONDS));
+            default:
+                throw new RuntimeException("Missing case branch for RunStats.Fields enum");
+        }
+    }
 }

@@ -2,14 +2,18 @@ package de.uniluebeck.itm.tr.eventstore.eval;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Stopwatch;
+import com.google.common.collect.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.newLinkedList;
 
 class RunStatsImpl<T> implements RunStats<T> {
@@ -184,7 +188,18 @@ class RunStatsImpl<T> implements RunStats<T> {
                 getAvgWritingOpsPer(ChronoUnit.SECONDS));
     }
 
-    public static String csvHeader() {
-        return "Class, Reader Count, Writer Count, Total Read Duration, Total Write Duration, Total Reading Ops, Total Writing Ops, AVG Duration Per Reading Op, AVG Duration Per Writing Op, AVG Reading Ops Per Second, AVG Writing Ops Per Second";
+    @Override
+    public String[] csvHeaders() {
+        return tableCols();
+    }
+
+    @Override
+    public String[] csvValues() {
+        return new String[0];
+    }
+
+    @Override
+    public String toCsvHeaders() {
+        return Joiner.on(",").join(csvHeaders());
     }
 }
