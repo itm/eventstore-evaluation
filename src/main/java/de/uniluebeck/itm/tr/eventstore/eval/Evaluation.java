@@ -72,7 +72,7 @@ public class Evaluation {
 
         final List<RunStats> stats = newLinkedList();
 
-        for (int runNr = 1; runNr < params.getRuns(); runNr++) {
+        for (int runNr = 1; runNr <= params.getRuns(); runNr++) {
 
             stats.add(executeRun(executor, params, generator, runNr));
             gcIfConfigured(params, runNr);
