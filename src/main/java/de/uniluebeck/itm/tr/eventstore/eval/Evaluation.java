@@ -65,6 +65,7 @@ public class Evaluation {
         executor.stopAsync().awaitTerminated();
         System.out.println("Finished");
 
+        System.exit(0);
     }
 
     private static <T> List<RunStats> runEvaluation(SchedulerService executor, Params params, Generator<T> generator) {
