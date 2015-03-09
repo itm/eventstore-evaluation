@@ -50,7 +50,7 @@ public class Evaluation {
         // warm up phase, results will be dismissed
         if (params.getWarmUp()) {
             System.out.println("Executing warm up phase...");
-            runEvaluation(executor, params, generator);
+            executeRun(executor, params, generator, -1);
         }
 
         System.out.println("Warm up done, executing runs. This could take a while...");
@@ -73,25 +73,34 @@ public class Evaluation {
 
         for (int runNr = 1; runNr < params.getRuns(); runNr++) {
 
-            Run<T> run = new EventStoreRun<>(runNr, executor, params, generator);
+            stats.add(executeRun(executor, params, generator, runNr));
+            gcIfConfigured(params, runNr);
 
-            run.startAsync();
-            run.awaitTerminated();
-
-            stats.add(run.getStats());
-
-            if (params.getGcBetweenRuns()) {
-                System.out.println("Running garbage collection after run " + runNr + "...");
-                try {
-                    System.gc();
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    System.exit(1);
-                }
-            }
         }
 
         return stats;
+    }
+
+    private static <T> RunStats<T> executeRun(SchedulerService executor, Params params, Generator<T> generator, int runNr) {
+
+        Run<T> run = new EventStoreRun<>(runNr, executor, params, generator);
+
+        run.startAsync();
+        run.awaitTerminated();
+
+        return run.getStats();
+    }
+
+    private static void gcIfConfigured(Params params, int runNr) {
+        if (params.getGcBetweenRuns()) {
+            System.out.println("Running garbage collection after run " + runNr + "...");
+            try {
+                System.gc();
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+        }
     }
 }
