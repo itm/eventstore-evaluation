@@ -1,9 +1,8 @@
-package de.uniluebeck.itm.tr.eventstore.eval.generators;
+package de.uniluebeck.itm.tr.eventstore.eval;
 
 import com.google.common.base.Function;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
-import de.uniluebeck.itm.tr.eventstore.eval.Params;
 import de.uniluebeck.itm.tr.iwsn.messages.Event;
 import de.uniluebeck.itm.tr.iwsn.messages.Message;
 import de.uniluebeck.itm.tr.iwsn.messages.UpstreamMessageEvent;

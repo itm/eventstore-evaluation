@@ -1,7 +1,6 @@
-package de.uniluebeck.itm.tr.eventstore.eval.generators;
+package de.uniluebeck.itm.tr.eventstore.eval;
 
 import com.google.common.base.Function;
-import de.uniluebeck.itm.tr.eventstore.eval.Params;
 
 import javax.inject.Inject;
 import java.util.Random;

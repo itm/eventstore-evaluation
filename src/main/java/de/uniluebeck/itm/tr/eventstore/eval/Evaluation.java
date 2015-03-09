@@ -3,7 +3,6 @@ package de.uniluebeck.itm.tr.eventstore.eval;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import de.uniluebeck.itm.tr.common.config.ConfigWithLoggingAndProperties;
-import de.uniluebeck.itm.tr.eventstore.eval.generators.Generator;
 import de.uniluebeck.itm.util.propconf.PropConfModule;
 import de.uniluebeck.itm.util.scheduler.SchedulerService;
 import de.uniluebeck.itm.util.scheduler.SchedulerServiceFactory;
@@ -78,6 +77,17 @@ public class Evaluation {
             run.awaitTerminated();
 
             stats.add(run.getStats());
+
+            if (params.getGcBetweenRuns()) {
+                System.out.println("Running garbage collection after run " + runNr + "...");
+                try {
+                    System.gc();
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    System.exit(1);
+                }
+            }
         }
 
         return stats;

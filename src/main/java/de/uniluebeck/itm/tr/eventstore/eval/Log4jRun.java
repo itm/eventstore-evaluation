@@ -1,7 +1,6 @@
 package de.uniluebeck.itm.tr.eventstore.eval;
 
 import com.google.common.base.Stopwatch;
-import de.uniluebeck.itm.tr.eventstore.eval.generators.Generator;
 import de.uniluebeck.itm.util.scheduler.SchedulerService;
 import org.apache.log4j.Level;
 import org.apache.log4j.PatternLayout;

@@ -2,7 +2,6 @@ package de.uniluebeck.itm.tr.eventstore.eval;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import de.uniluebeck.itm.tr.eventstore.eval.generators.Generator;
 import de.uniluebeck.itm.util.propconf.PropConf;
 import de.uniluebeck.itm.util.propconf.converters.ClassTypeConverter;
 
@@ -100,7 +99,7 @@ public class Params {
 
     @PropConf(
             usage = "fully-qualified class name of the generator function to create items to be persisted",
-            defaultValue = "de.uniluebeck.itm.tr.eventstore.eval.generators.RandomMessageGenerator",
+            defaultValue = "de.uniluebeck.itm.tr.eventstore.eval.RandomMessageGenerator",
             typeConverter = ClassTypeConverter.class
     )
     public static final String GENERATOR_CLASS = "generator_class";

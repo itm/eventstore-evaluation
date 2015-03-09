@@ -6,7 +6,6 @@ import de.uniluebeck.itm.eventstore.CloseableIterator;
 import de.uniluebeck.itm.eventstore.EventContainer;
 import de.uniluebeck.itm.eventstore.EventStore;
 import de.uniluebeck.itm.eventstore.EventStoreFactory;
-import de.uniluebeck.itm.tr.eventstore.eval.generators.Generator;
 import de.uniluebeck.itm.util.scheduler.SchedulerService;
 import net.openhft.chronicle.tools.ChronicleTools;
 

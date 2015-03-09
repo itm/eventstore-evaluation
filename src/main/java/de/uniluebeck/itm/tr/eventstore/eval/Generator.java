@@ -1,4 +1,4 @@
-package de.uniluebeck.itm.tr.eventstore.eval.generators;
+package de.uniluebeck.itm.tr.eventstore.eval;
 
 import com.google.common.base.Function;
 

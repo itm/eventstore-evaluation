@@ -2,7 +2,6 @@ package de.uniluebeck.itm.tr.eventstore.eval;
 
 import com.google.common.base.Stopwatch;
 import com.google.common.util.concurrent.AbstractService;
-import de.uniluebeck.itm.tr.eventstore.eval.generators.Generator;
 import de.uniluebeck.itm.util.scheduler.SchedulerService;
 
 import java.io.Closeable;
